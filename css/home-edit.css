@@ -1,0 +1,30 @@
+div.orange {
+background-image:url('../imgs/cover-orange.jpg');
+background-repeat: none;
+background-attachment: fixed;
+background-position:center; 
+}
+site-wrapper-inner{
+clear: both;
+}
+h1.caslon {
+font-family: "adobe-caslon-pro", serif;
+font-style: italic;
+font-weight: 700;
+font-size: 72px;
+color: black;
+}
+
+h1 > span.small {
+color: black;
+line-height: 80%;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: rgba(0,0,0,0);
+    border-bottom-color: #e5e5e5;
+}
+
+ul.dropdown-menu > li {
+text-align: left;
+}

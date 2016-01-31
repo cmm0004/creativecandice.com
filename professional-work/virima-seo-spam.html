@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Professional Work by Candice McCollough">
+    <meta name="author" content="Candice McCollough">
+    <link rel="shortcut icon" href="../imgs/candice.ico">
+
+    <title>Candice McCollough - Professional Work</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+    
+
+    <!-- Custom styles for this template -->
+    <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+    <!-- my custom CSS -->
+    <link href="../css/pages.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+        
+        <li class="dropdown">
+          <a href="./extras.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Extras <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.happenings.creativecandice.com">Blog</a></li>
+            <li class="divider"></li>
+            <li><a href="../personal-work.html">Personal Projects</a></li>
+            <li><a href="../fine-art.html">Fine Art</a></li>
+            <li><a href="../school-work.html">School Projects</a></li>
+            
+            
+          </ul>
+        </li>
+        
+         	<!--<li><a href="./extras.html">Extras</a></li>-->
+          <li class="active"><a href="../portfolio.html">Portfolio</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" style="text-decoration: none;" href="http://www.creativecandice.com">Incident Response</a></h3>
+      </div>
+      
+      <div class="row bottom-border">
+      	
+      	<div class="col-lg-12">
+      	<h1 class="candice-aside">Incident involving FTP intrusion and the insertion of malicious SEO spam into company websites.</h1>
+      	</div><!--end <div class="col-lg-8">-->
+      	</div><!--end <div class="row">-->
+      	<h2>Discovery</h2>
+      	<p>At lunch on Wednesday May 7th, 2014 I got an email from a co-worker, forwarded from a consultant, about an anomaly on the bing search results for Virima.com</p>	
+      	<img class="img-responsive" 
+          			
+          			
+          			src="./imgs/spam-email.jpg" 
+          			alt="seo spam"/>
+          			
+          			
+        <h2>Response</h2>
+        <p>I ran the site through Sucuri’s online scanner which showed that 3 pages of Virima and 2 pages of Ecosystemmgr, (another company website, kept on the same server) had SEO spam on them. This is where an intruder will upload a link(s) to their site on yours in order to boost their SEO. 
+I noticed a couple of things about the spam:</p>
+<h3>On Virima:</h3>
+<ul><li>It only appeared in the bing search results, not google's.</li>
+<li>It was not displayed on the actual rendered page.</li>
+<li>The links appeared in the page source and had some inline css to display: none;</li>
+<li>The link did not appear in the CMS page editor.</li>
+</ul>
+
+<h3>On Ecosystemmgr:</h3>
+<ul>
+<li>It didn’t appear in the search result </li>
+<li>It was displayed in the actual rendered page</li>
+<li>The links appeared in the page source.</li>
+<li>They appeared in the CMS page editor</li>
+<li>There was an unauthorized user in the wordpress dashboard.</li>
+</ul>
+
+<p>I began with virima because it was the most curious. A few explainations for the spam’s behavior:</p>
+<h3>Only appearing in bing results:</h3>
+<p>This is likely because bing had crawled the site since the spam had been uploaded and google hadn’t. If we hadn’t noticed it, then the next time google crawled the site, it would be noticed by google.<br />
+This also means that the bing results with the spam will continue to show until bing crawls the site again and refreshes its information on us.<br />
+</p>
+<h3>Appearing in the rendered page, but not in the CMS page editor:</h3>
+	<p>This was the most insidious part of the spam. It means the intruder had access to the server to either edit the page template files, or directly added the link to the database cell associated with this post.
+</p>
+
+<h3>Two theories:</h3>
+
+
+<h3>1. The post_content database table has been altered to include the link.<h3>
+	<p class="lead">Test:</p>
+	<p>To test this, I made a small change to the affected page on virima, and updated the post. This creates a new entry in the database associated with this post/page revision and wouldn’t be pulling the data from the altered database cell anymore.</p>
+	<p class="lead">Result:</p>
+	<p>The spam still appeared exactly as it did before. This nulled my hypothosis, but also showed that I was viewing the page I thought I was, and there wasn’t any kind of redirection to a copy-cat page because I could see my small change as part of this new updated page. </p>
+	<p>However, I still opened up my backup of the database and located the entry in question, and it was exactly as it was showing in the CMS. No link inserted, just a paragraph about ecosystem manager and database management. So, I concluded the database was not where the problem was located.</p>
+<h3>2. The scripts that control the behavior of the pages have been altered to include a call to somewhere else hosting this spam link.</h3>
+	<p class="lead">Test:</p>
+	<p>So, we needed to find the difference between virima’s wordpress installation, and a fresh one of the same version, 3.9. Hashed all the files in the attacked copy of virima, and hashed all the files in the fresh copy of wordpress, and compared them looking for differences. Expected to find a couple changes into the theme folder, where I’ve made a couple benign changes and added a favicon.ico file. However, more changes were found. One of the index.php files was different (wordpress includes an index.php in every directory as a security feature, they are all the same:</p>
+	<pre>
+	<code>&lt;?php
+	// Silence is golden.
+	?&gt;</code>
+	</pre>
+	<p>The one that was different had the ending <code>?&gt;</code> missing. Which isn’t a issue because it isnt needed if theres no other language (like HTML) being written in the same file. So this was just a case of a word press developer being lazy, and wasn’t the source of the problem. </p>
+	<p>grep brought up a couple much more interesting differences in a couple files in the wp-includes directory. The first was post-template.php and the second was rss-info.php. The post-template.php file had a couple lines difference, and the rss-info.php file wasn’t present in the clean copy of wordpress 3.9 at all. Jackpot.</p>
+	<p>So, I open up the rss-info.php file in TextWrangler and I find this (truncated):</p>
+	<pre>
+	<code>&lt;?php $GLOBALS['_1120902887_']=Array(base64_decode('' .'ZXJyb3JfcmVwb3J0' .'aW5' .'n'),
+				base64_decode('aW5pX3Nld' .'A=='),
+				base64_decode('c' .'3' .'R' .'yc' .'G9z'),</code>
+</pre>
+<p>I’m not an expert in malware, but I know anything trying to hide the code with a bajillion variables is bad news. I still have the original file. Its mostly just a long list of variables and then a couple of huge functions to unravel them into basically an echo that puts “buy viagra here: and a random choice of an array of pharma sites. </p>
+
+<p>So I deleted that file off the server and checked the site. Spam gone. Removed the root of the problem</p>
+<p>Then I opened up the altered post-template.php file and starting on line 212 found this:</p>
+<pre>
+$content = apply_filters( 'the_content', $content );
+$content = str_replace( ']]</code>&gt;</code>', ']]&gt;', $content );
+@include_once("rss-info.php");
+echo $content;
+</pre>
+
+<p>The clean version of this file only contains:</p>
+<pre>
+$content = apply_filters( 'the_content', $content );
+$content = str_replace( ']]</code>&gt;</code>', ']]&gt;', $content );
+echo $content;
+</pre>
+
+<p>Sneaky.</p>
+
+<p>So I reinstalled a fresh wordpress 3.9 and it overwrote everything the hacker-bot had
+ changed. Arguably, I could have just done that at the beginning, but it was a good learning exercise.</p>
+
+<h3>Now to look at Ecosystemmgr.com</h3>
+<p>I assumed the problem was the same and just re-installed a fresh wordpress and fresh 
+copies of the plugins. Then checked the site. The spam was still present. Well, now what?</p>
+
+<p>I start poking around the dashboard of ecosystemmgr, and find an anauthorized user. Bingo. 
+Finally had compelling evidence to show restricting user privileges, removing redundant accounts, 
+and stregthening passwords is a good idea, and was able to get permission to implement strengthened security.
+Removed the unauthorized user, and checked a back-up for a backdoor added to our functions.php file (as the 
+wordpress had already been fresh installed and the could-have-been compromised functions.php file overwritten), didn't find one. Good.
+Then I went to the edit page interface of the effected webpage, and there the links were, simply 
+pasted into the page content. Easy fix. Hopefully with the increased security measures it won't become a recurring problem.</p>
+
+<h2>Investigation:</h2>
+
+<p>I contacted the company that manages our hosting, so they could contact the hosting 
+company and ask for the access logs to the site. I get the ftp logs back, and am told the raw access logs are not recorded.</p> 
+<p> I do get to look in the ftp logs though. In them, I find where the rss-info.php was upladed and the post-template.php was overwritten, about two weeks previously. 
+In Ecosystemmgr, I can't pinpoint a time period, because they accessed the site directly throught the wp dashboard, not throught ftp. And I can't have the access logs.</p>
+
+<p>The crisis was successfully averted, and quickly enough that our site was never blacklisted for malware. It was a good day.</p>
+
+
+
+<a href="./aruvio-document-design.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Previous Project</a>
+    		
+<a href="../portfolio.html" target="_self" class="btn btn-default btn-block btn-lrg" role="button">Back to Professional Work</a>
+<a href="./aruvio-video-marketing.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Next Project</a>
+
+          			
+      <div class="footer">
+        <p style="float: left;">&copy; Candice McCollough 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../home_files/jquery.js"></script>
+    <script src="../home_files/bootstrap.min.js"></script>
+    <script src="../home_files/docs.js"></script>
+
+
+</body></html>

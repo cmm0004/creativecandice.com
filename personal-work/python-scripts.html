@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Professional Work by Candice McCollough">
+    <meta name="author" content="Candice McCollough">
+    <link rel="shortcut icon" href="./favicon.ico">
+
+    <title>Candice McCollough - Personal Work</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+    
+
+    <!-- Custom styles for this template -->
+    <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+    <!-- my custom CSS -->
+    <link href="../css/pages.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+        
+        <li class="dropdown active">
+          <a href="./extras.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Extras <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.happenings.creativecandice.com">Blog</a></li>
+            <li class="divider"></li>
+            <li><a href="../personal-work.html">Personal Projects</a></li>
+            <li><a href="../fine-art.html">Fine Art</a></li>
+            <li><a href="../school-work.html">School Projects</a></li>
+            
+            
+          </ul>
+        </li>
+        
+         	<!--<li><a href="./extras.html">Extras</a></li>-->
+          <li><a href="../portfolio.html">Portfolio</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" style="text-decoration: none;" href="http://www.creativecandice.com">Python Scripts</a></h3>
+      </div>
+      
+      <div class="row bottom-border">
+      	
+      	<div class="col-lg-12">
+      	<h1 class="candice-aside">I started learning python to get a better understanding of object-oriented programming.</h1>
+      	</div><!--end <div class="col-lg-8">-->
+      	</div><!--end <div class="row">-->
+      	<p>These are just some functions I've made. Pieces/parts</p>
+      	
+	
+          	
+          			<p class="lead">A merge function for a python version of the game 2048. For combining the numbers when you press an arrow key.</p>
+          			<div class="well">
+          			<pre>
+
+def merge(line):
+    """
+    Helper function that merges a single row or column in 2048
+    """
+    
+    #set up variables
+    #new_line is the line without zeros
+    new_line = []
+    #new_new_line is new_line after merging and
+    #adding the zero's back again to the end
+    new_new_line = []
+    #new_line_ind is our spot in new_new_line as we 
+    #iterate through new_line
+    new_line_ind = 0
+    #whether or not a tile should be merged to the one left 
+    #of it
+    can_merge = False
+    
+    #removing zeros,copying to new_list
+    #if we start with [0,0,2,0,2], gives [2,2]
+    for dummy_i in line:
+        if dummy_i != 0:
+            new_line.append(dummy_i)
+            
+    #merging new_list resulting in new_new_list 
+    for dummy_i in new_line:
+        #skips the first iteration, can_merge starts false.
+        #if we worked up the list, rather than
+        #looking to see the previous item in the list,
+        #we would get an indexing error on the last item of
+        #new_new_line
+        if can_merge and dummy_i == new_new_line[new_line_ind - 1]:
+            #since all merging occurs by adding two of the 
+            #same numbers together, i've just multiplied
+            #by two
+            #if we started with [2,2], this becomes [2,4]
+            new_new_line.insert(new_line_ind, dummy_i * 2)
+            #pops the previous number, so if we are at [2,4],
+            #it becomes [4]
+            new_new_line.pop(new_line_ind - 1)
+            
+            #so we dont merge the same number (tile) twice
+            can_merge = False
+            
+        else:
+            #adds the first number of new_list to new_new_list
+            #if this is the first iteration, adds the numbers
+            #that dont get merged in following iterations
+            new_new_line.insert(new_line_ind, dummy_i)
+            #lets up go through the if loop on next iteration,
+            #if other contraints are met
+            can_merge = True
+            #prevents indexing errors.
+            new_line_ind += 1
+           
+    #adds zeros back. if we are at [4], 
+    #gives back [4,0,0,0,0]
+    while len(new_new_line) < len(line):
+        new_new_line.append(0)
+    
+    #merge complete 
+    return line, new_line, new_new_line, can_merge
+
+line = [0, 0, 2, 2]
+
+print merge(line)
+
+</pre>
+</div>
+<br />
+<p>And an unfinished attempt to build the full game. I can get the new merged values, and a list of every position where the new value goes, 
+but for the life of me, I can't get it to correctly map the new values to the right positions. I'm going to try a version using a dict rather than a list.</p>
+
+<p class="lead">An incomplete implementation of the game 2048</p>
+
+<div class="well">
+<pre>
+"""
+Clone of 2048 game.
+"""
+
+import poc_2048_gui        
+import random
+# Directions, DO NOT MODIFY
+UP = 1
+DOWN = 2
+LEFT = 3
+RIGHT = 4
+
+# Offsets for computing tile indices in each direction.
+# DO NOT MODIFY this dictionary.    
+OFFSETS = {UP: (1, 0), 
+           DOWN: (-1, 0), 
+           LEFT: (0, 1), 
+           RIGHT: (0, -1)} 
+   
+def merge(line):
+    """
+    Helper function that merges a single row or column in 2048
+    """
+    
+    #set up variables
+    #new_line is the line without zeros
+    new_line = []
+    #new_new_line is new_line after merging and
+    #adding the zero's back again to the end
+    new_new_line = []
+    #new_line_ind is our spot in new_new_line as we 
+    #iterate through new_line
+    new_line_ind = 0
+    #whether or not a tile should be merged to the one left 
+    #of it
+    can_merge = False
+    
+    #removing zeros,copying to new_list
+    #if we start with [0,0,2,0,2], gives [2,2]
+    for dummy_i in line:
+        if dummy_i != 0:
+            new_line.append(dummy_i)
+            
+    #merging new_list resulting in new_new_list 
+    for dummy_i in new_line:
+        #skips the first iteration, can_merge starts false.
+        #if we worked up the list, rather than
+        #looking to see the previous item in the list,
+        #we would get an indexing error on the last item of
+        #new_new_line
+        if can_merge and dummy_i == new_new_line[new_line_ind - 1]:
+            #since all merging occurs by adding two of the 
+            #same numbers together, i've just multiplied
+            #by two
+            #if we started with [2,2], this becomes [2,4]
+            new_new_line.insert(new_line_ind, dummy_i * 2)
+            #pops the previous number, so if we are at [2,4],
+            #it becomes [4]
+            new_new_line.pop(new_line_ind - 1)
+            
+            #so we dont merge the same number (tile) twice
+            can_merge = False
+            
+        else:
+            #adds the first number of new_list to new_new_list
+            #if this is the first iteration, adds the numbers
+            #that dont get merged in following iterations
+            new_new_line.insert(new_line_ind, dummy_i)
+            #lets us go through the if-section of the 
+            #loop on next iteration,
+            #if other contraints are met
+            can_merge = True
+            #prevents indexing errors.
+            new_line_ind += 1
+           
+    #adds zeros back. if we are at [4], 
+    #gives back [4,0,0,0,0]
+    while len(new_new_line) < len(line):
+        new_new_line.append(0)
+    
+    #merge complete, if we started with [0,0,2,0,2],
+    #gives back [4,0,0,0,0]
+    return new_new_line
+
+class TwentyFortyEight:
+    """
+    Class to run the game logic.
+    """
+
+    def __init__(self, grid_height, grid_width):
+        # initializes the important variables for the board
+        self.rows = grid_height
+        self.cols = grid_width
+        self.cells = []
+        
+        initial_tiles_up = []
+        initial_tiles_down = []
+        initial_tiles_left = []
+        initial_tiles_right = []
+        
+        for dummy_idx in range(self.rows):
+            initial_tiles_left.append([dummy_idx, 0])
+            initial_tiles_right.append([dummy_idx, self.cols-1])
+        for dummy_idx in range(self.cols):
+            initial_tiles_up.append([0, dummy_idx])
+            initial_tiles_down.append([self.rows-1, dummy_idx])
+            
+        self.initial_tiles = {UP: initial_tiles_up,
+                         DOWN: initial_tiles_down,
+                         LEFT: initial_tiles_left,
+                         RIGHT: initial_tiles_right
+                         }
+
+    def reset(self):
+        """
+        Reset the game so the grid is empty.
+        """
+        #also, creates the first board.
+        self.cells = [ [0 for dummy_col in range(self.cols)] for dummy_row in range(self.rows)]
+    
+    def __str__(self):
+        """
+        Return a string representation of the grid for debugging.
+        """
+        # prints as separate lists, looks more like the board
+        #in the gui
+        for dummy_row in range(self.get_grid_height()):
+            print self.cells[dummy_row]
+
+    def get_grid_height(self):
+        """
+        Get the height of the board.
+        """
+        
+        return self.rows
+    
+    def get_grid_width(self):
+        """
+        Get the width of the board.
+        """
+        
+        return self.cols
+                            
+    def move(self, direction):
+        """
+        Move all tiles in the given direction and add
+        a new tile if any tiles moved.
+        """
+        lst_of_values = []
+        temp_to_be_moved = []
+        temp_lst = []
+        
+        for dummy_tile in self.initial_tiles[direction]:
+            while (0 <= dummy_tile[0] < self.rows) and (0 <= dummy_tile[1] < self.cols):
+                
+                temp_lst.append([dummy_tile[0], dummy_tile[1]])
+                dummy_tile[0] += OFFSETS[direction][0]
+                dummy_tile[1] += OFFSETS[direction][1]
+            temp_to_be_moved.append(temp_lst)
+            
+            temp_lst = []
+        print "all the indecis of tiles to be merged"
+        for ind in temp_to_be_moved:
+            print ind
+        
+        for dummy_ind in temp_to_be_moved:
+            temp_lst = []
+            for tile in dummy_ind:
+                
+                temp_lst.append(self.get_tile(tile[0], tile[1]))
+            lst_of_values.append(merge(temp_lst))
+            temp_lst = []
+        print "the merged values, most clear when merging to the left"
+       
+        for ind in lst_of_values:
+            print ind
+            
+        print "and for the life of me, i cant figure out how to update the board"
+            # create current list by adding the offset values to the initial tile values
+             # number of times you do this will depend on how wide or high your grid is
+         # create list of the tile values in your current list
+         # for each value list (which is each row or column), run merge method
+         # for each merged value list, update the values in the grid
+        
+        
+        self.new_tile()
+        
+    def new_tile(self):
+        """
+        Create a new tile in a randomly selected empty 
+        square.  The tile should be 2 90% of the time and
+        4 10% of the time.
+        """
+        #need a list to hold available tiles
+        empty_tiles = []
+        #iterate through a copy of entire board, check current position
+        #against value of corressponding position in the self.cells
+        #variable, and add to empty_tiles list if that place
+        #on the board is a zero
+        for dummy_row in range(self.get_grid_height()):
+            for dummy_col in range(self.get_grid_width()):
+                if self.cells[dummy_row][dummy_col] == 0:
+                    empty_tiles.append([dummy_row, dummy_col])
+        #need a value for the new tile, 10% chance of being a 4
+        #90 % chance of being a 2
+        new_tile_value = random.choice([2,2,2,2,2,2,2,2,2,4])
+        
+        #if there is at least one zero on the board,
+        if len(empty_tiles) > 0:
+            #then choose a tile and give it the new_tile_value
+            #and add it to the game board
+            tile_choice = random.choice(empty_tiles)
+            
+            self.set_tile(tile_choice[0], tile_choice[1], new_tile_value)
+        else:
+            print "game over"
+    def set_tile(self, row, col, value):
+        """
+        Set the tile at position row, col to have the given value.
+        """        
+        
+        self.cells[row][col] = value
+
+    def get_tile(self, row, col):
+        """
+        Return the value of the tile at position row, col.
+        """        
+        
+        return self.cells[row][col]
+ 
+
+
+
+
+
+
+
+
+poc_2048_gui.run_gui(TwentyFortyEight(4,4))
+
+</pre>
+</div>
+
+<a href="./tea-and-angular.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Previous Project</a>
+         			
+<a href="../personal-work.html" target="_self" class="btn btn-default btn-block btn-lrg" role="button">Back to Personal Work</a>
+<a href="./python-asteroids.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Next Project</a>
+
+          			
+      <div class="footer">
+        <p style="float: left;">&copy; Candice McCollough 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../home_files/jquery.js"></script>
+    <script src="../home_files/bootstrap.min.js"></script>
+    <script src="../home_files/docs.js"></script>
+
+
+</body></html>

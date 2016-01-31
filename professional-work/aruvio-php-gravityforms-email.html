@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Professional Work by Candice McCollough">
+    <meta name="author" content="Candice McCollough">
+    <link rel="shortcut icon" href="../imgs/candice.ico">
+
+    <title>Candice McCollough - Professional Work</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+    
+
+    <!-- Custom styles for this template -->
+    <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+    <!-- my custom CSS -->
+    <link href="../css/pages.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+        
+        <li class="dropdown">
+          <a href="./extras.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Extras <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.happenings.creativecandice.com">Blog</a></li>
+            <li class="divider"></li>
+            <li><a href="../personal-work.html">Personal Projects</a></li>
+            <li><a href="../fine-art.html">Fine Art</a></li>
+            <li><a href="../school-work.html">School Projects</a></li>
+            
+            
+          </ul>
+        </li>
+        
+         	<!--<li><a href="./extras.html">Extras</a></li>-->
+          <li class="active"><a href="../portfolio.html">Portfolio</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" style="text-decoration: none;" href="http://www.creativecandice.com">Custom GravityForms</a></h3>
+      </div>
+      
+      <div class="row bottom-border">
+      	
+      	<div class="col-lg-12">
+      	<h1 class="candice-aside">We use the Gravityforms plugin to collect customer information from the aruvio.com website. Our sales
+      	team asked me to prevent prospects from submitting personal email addresses such as @gmail.</h1>
+      	</div><!--end <div class="col-lg-8">-->
+      	</div><!--end <div class="row">-->
+      	<a href="http://aruvio.com/grc-software-applications/third-party-management-application/" target="_blank" class="btn btn-warning btn-block btn-lrg" role="button">See Working Example</a>
+      	<br />
+      	<p>At first, I searched the GravityForms documentation and found the instructions for using the 'gform_validation' hook, and started working 
+      	on a function that would look filter out personal emails, but I found this snippet that does exactly what  I needed it to do, so I used it
+      	 instead. I then called an instance of the class at the bottom of our themes functions.php file and tested it.</p>	
+      	<pre>
+      	
+      
+/**
+* Ban/Limit Email Domains for Gravity Form Email Fields
+* http://gravitywiz.com/2012/11/11/banlimit-email-domains-for-gravity-form-email-fields/
+*/
+class GWEmailDomainControl {
+private $_args;
+function __construct($args) {
+$this->_args = wp_parse_args($args, array(
+'form_id' => false,
+'field_id' => false,
+'domains' => false,
+'validation_message' => __('Sorry, <strong>%s</strong> email accounts are not eligible for this form.'),
+'mode' => 'ban' // also accepts "limit"
+));
+// convert field ID to an array for consistency, it can be passed as an array or a single ID
+if($this->_args['field_id'] && !is_array($this->_args['field_id']))
+$this->_args['field_id'] = array($this->_args['field_id']);
+$form_filter = $this->_args['form_id'] ? "_{$this->_args['form_id']}" : '';
+add_filter("gform_validation{$form_filter}", array($this, 'validate'));
+}
+function validate($validation_result) {
+$form = $validation_result['form'];
+foreach($form['fields'] as &$field) {
+// if this is not an email field, skip
+if(RGFormsModel::get_input_type($field) != 'email')
+continue;
+// if field ID was passed and current field is not in that array, skip
+if($this->_args['field_id'] && !in_array($field['id'], $this->_args['field_id']))
+continue;
+$domain = $this->get_email_domain($field);
+// if domain is valid OR if the email field is empty, skip
+if($this->is_domain_valid($domain) || empty($domain))
+continue;
+$validation_result['is_valid'] = false;
+$field['failed_validation'] = true;
+$field['validation_message'] = sprintf($this->_args['validation_message'], $domain);
+}
+$validation_result['form'] = $form;
+return $validation_result;
+}
+function get_email_domain($field){
+$email = explode('@', rgpost("input_{$field['id']}"));
+return rgar($email, 1);
+}
+function is_domain_valid($domain) {
+if($this->_args['mode'] == 'ban') {
+return !in_array($domain, $this->_args['domains']);
+}
+else {
+return in_array($domain, $this->_args['domains']);
+}
+}
+}
+		
+</pre>
+<br />
+<p>My new GWEmailDomainControl object, that blocks gmail, hotmail, test, mindspring, yahoo, and aol emails.
+ By passing a form_id, or field_id, I could block personal emails on specific forms or only on specific fields of specific forms (if I was asking for
+  both a work and alternate email in the same form). Changing the mode argument to 'limit' would allow <em>only</em> specified emails to be submitted.</p>
+<pre>
+new GWEmailDomainControl(array(
+//'form_id' => 152,
+//'field_id' => 9,
+'domains' => array('gmail.com', 'hotmail.com', 'test.com', 'mindspring.com', 'yahoo.com','aol.com'),
+'validation_message' => __('Please, no personal emails. Only submit a valid company email.'),
+'mode' => 'ban'
+));
+</pre>
+<p>Knowing how to write something like this from scratch is important, but I think knowing enough about what you want, to ask exactly the right 
+question, and having the know-how to correctly implement the answers you find is equally important.</p>
+<a href="./aruvio-conference-banner.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Previous Project</a>
+    		
+<a href="../portfolio.html" target="_self" class="btn btn-default btn-block btn-lrg" role="button">Back to Professional Work</a>
+<a href="./aruvio-product-UI-mockup.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Next Project</a>
+
+          			
+      <div class="footer">
+        <p style="float: left;">&copy; Candice McCollough 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../home_files/jquery.js"></script>
+    <script src="../home_files/bootstrap.min.js"></script>
+    <script src="../home_files/docs.js"></script>
+
+
+</body></html>

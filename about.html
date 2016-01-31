@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Candice McCollough">
+    <link rel="shortcut icon" href="./imgs/favicon.ico">
+    <script type="text/javascript" src="//use.typekit.net/ecx0ojq.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <title>Candice McCollough Portfolio - Teas on the Loose</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.css" rel="stylesheet">
+  
+    
+
+    <!-- Custom styles for this template -->
+    <link href="./css/jumbotron-narrow.css" rel="stylesheet">
+    <!-- my custom CSS -->
+    <link href="./css/pages.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Skill', 'Confidence Using'],
+          ['Photoshop', 10],
+          ['Android SDK', 2],
+          ['BASH', 3],
+          ['Python', 3],
+          ['Eclipse', 5],
+          ['Google Adwords', 7],
+          ['Google Analytics', 9],
+          ['Salesforce.com', 5],
+          ['iRise', 9],
+          ['Balsamiq', 6],
+          ['Wordpress', 9],
+          ['jQuery', 5],
+          ['Javascript', 6],
+          ['Bootstrap', 7],
+          ['Microsoft Office', 10],
+          ['Acrobat', 9],
+          ['SEO', 8],
+          ['HootSuite', 8],
+          ['InDesign', 10],
+          ['Typography', 10],
+          ['Branding', 9],
+          ['HTML/CSS', 9],
+          ['Dreamweaver', 4],
+          ['Illustrator', 10],
+          ['Fine Art Production', 10],
+          ['WireFraming', 10],
+        ]);
+
+        var options = {
+          title: '',
+          legend: { position: 'none' },
+          colors: ['#1A8763'],
+          interpolateNulls: false,
+          histogram: { lastBucketPercentile: 5 },
+          label: true,
+         
+        };
+
+        var chart = new google.visualization.Histogram(document.getElementById('work-exp-skill'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <script type='text/javascript'>
+     google.load('visualization', '1', {'packages': ['geochart']});
+     google.setOnLoadCallback(drawMarkersMap);
+
+      function drawMarkersMap() {
+      var data = google.visualization.arrayToDataTable([
+        ['City',   'Years Lived'],
+        ['Dothan, AL', .1],
+        ['Marianna, FL', 5],
+        ['Tallahassee, FL', 3],
+        ['Panama City, FL', 7],
+        ['Anderson, SC', 1.5],
+        ['Auburn, AL', 5],
+        ['Atlanta, GA', 2],
+      ]);
+
+      var options = {
+      	title: false,
+        region: 'US',
+        resolution: 'provinces',
+        displayMode: 'markers',
+        markerOpacity: 0.7,
+        colorAxis: {minValue: 0, colors: ['green', 'blue']} // green to blue
+      };
+
+      var chart = new google.visualization.GeoChart(document.getElementById('hometown-null'));
+      chart.draw(data, options);
+    };
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="dropdown">
+          <a href="./extras.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Extras <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.happenings.creativecandice.com">Blog</a></li>
+            <li class="divider"></li>
+            <li><a href="./personal-work.html">Personal Projects</a></li>
+            <li><a href="./fine-art.html">Fine Art</a></li>
+            <li><a href="./school-work.html">School Projects</a></li>
+            
+            
+          </ul>
+        </li>
+          <li><a href="./portfolio.html">Portfolio</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li class="active"><a href="#">About</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" style="text-decoration: none;" href="./index.html">Who's that girl?</a></h3>
+      </div>
+
+<div id="my-affix" class="side-menu affix-bottom affix affix-top" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+<ul>
+
+<li><a href="#past">My Past</a></li>
+<li><a href="#present">My Present</a></li>
+<li><a href="#future">My Future</a></li>
+<li><a href="#the-site">This Site</a></li>
+<!--<li><a href="#the-site">Resources</a></li>-->
+  </ul>
+  </div>    
+      <div class="row bottom-border">
+      	<div class="col-lg-4">
+      	<img src="./imgs/pic-of-me.jpg" class="img-responsive img-thumbnail img-circle center"/>
+      	</div>
+      	<div class="col-lg-8">
+      	<h1 class="candice-aside">Candice McCollough is a friend, daughter, entrepreneur, <em>excellent cook</em>, and creative problem solver.</h1>
+      	</div><!--end <div class="col-lg-8">-->
+      	</div><!--end <div class="row">-->
+      	
+      <div class="row">
+      	
+      	<h2 id="past" class="text-muted">Where I came from</h2>
+      	
+      	
+      	<p><img src="http://dailydropcap.com/images/B-7-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="B"/>orn and raised in the South - though not any particular part of it - I 
+      	first got into art and design at Auburn University after a quick major change from Industrial Design 
+      	to Graphic Design. I developed a love for typography, learning as much as I could about letterforms and 
+      	looking to established designers for inspiration.</p>
+      	<h3>Places Lived, by Year:</h3>
+      	
+      	<div id="hometown-null" style="width: 90%;"></div>
+      	
+      <p class="after-img"><img src="http://dailydropcap.com/images/I-6-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="I"/> graduated form Auburn in May of 2012 and moved to Atlanta to work for a medium sized technology firm
+      that specialized in document management. All of my work there was proprietary, but I began my interest in web technologies 
+      while I was there. I had never before appreciated how vast and complex the internet was - having been isolated in print-design-land 
+      at Auburn. I started learning HTML, CSS, and Javascript, and started trying to build little websites from scratch.</p>
+      <p><img src="http://dailydropcap.com/images/A-7-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="A"/>bout 8 months after I began working in Atlanta, I was laid off my position as a Creative Specialist due to department
+      downsizing. This began the hardest and most challenging point of my career to date. I had been working on and off on my start-up
+      <a href="http://www.teasontheloose.com">Teas on the Loose</a> and now poured myself into learning everything I could to build the
+      website for it. I learned the skills needed to administer and develop a fully functional Wordpress site and used those new skills to 
+      secure my current position as a Web Designer at another technology firm in Atlanta.</p>
+		<p class="candice-aside">My most valuable skill is my enthusiasm. Its an enthusiasm to learn new things, to dig deeper into problems, 
+		and to hunker down and get things done.</p>
+		
+		<h2 id="present" class="text-muted">Where I Am</h2>
+		<p><img src="http://dailydropcap.com/images/P-1-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="P"/>resently I am working in Atlanta as a Wearer of Many Hats for a small technology company specializing in Cloud Based
+		Governance, Risk, and Compliance software. I administer, maintenance, and update our company websites, analyze and update our 
+		SEO efforts, connect our web-forms to third party API's, design marketing collateral such as datasheets and images 
+		for our social media posts, design presentations, design banners and trade-show booth materials, provide occasional desktop support 
+		to my co-workers and generally make my boss' jobs easier. I'm currently working on learning Adobe After Effects to create more materials for our marketing push.</p>
+		
+		
+		
+		
+		<h3>All Relevant Skills:</h3>
+		<ul class="list-inline skillz">
+		<li>Adobe Creative Cloud</li>
+  		<li>Microsoft Office</li>
+  		<li>Photoshop</li>
+  		<li>Android SDK</li>
+  		<li>Eclipse</li>
+  		<li>Google Analytics</li>
+  		<li>Google Adwords</li>
+  		<li>Salesforce.com</li>
+  		<li>iRise</li>
+  		<li>Balsamiq Mockups</li>
+  		<li>Python</li>
+  		<li>BASH</li>
+  		<li>FTP</li>
+  		<li>Wordpress</li>
+  		<li>jQuery</li>
+  		<li>Bootstrap</li>
+  		<li>Javascript</li>
+  		<li>Acrobat</li>
+  		<li>SEO</li>
+  		<li>HootSuite</li>
+  		<li>InDesign</li>
+  		<li>Typography</li>
+  		<li>Branding</li>
+  		<li>HTML/CSS</li>
+  		<li>Dreamweaver</li>
+  		<li>Illustrator</li>
+  		<li>Fine Art Production</li>
+  		<li>WireFraming</li>
+  		<li>Social Media Marketing</li>
+  		
+		</ul>
+		<h3>Skills by Proficiency</h3>
+		<div id="work-exp-skill" style="width: 100%; height:500px;"></div>
+		
+		<p><img src="http://dailydropcap.com/images/I-11-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="I"/>n my free time, I'm learning Python to better understand how dynamic content works on the web, working on my 
+		start-up, staying healthy, keeping up with friends, exploring this giant city I'm in, and cooking.</p>
+		
+		<h2 id="future" class="text-muted">Where I'm Going</h2>
+		<p><img src="http://dailydropcap.com/images/W-9-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="W"/>hat is in my future? I'm not exactly sure, but I know what I want it to be. I want my start-up to take off, I want to 
+		be able to make my own hours, and dedicate myself to typography and letterpress. I want to make beautiful things. Of course,
+		 that's my pie-in-the-sky dream, my back up plan is to get into advertising, making beautiful things.</p>
+		 
+		 <p class="candice-aside">What I want most is to be in a position - both professionally and personally - where I can always
+		  be improving.</p>
+		
+		<h2 id="the-site" class="text-muted">About This Site<h2>
+		<p><img src="http://dailydropcap.com/images/T-1-cap.png" title="Daily Drop Cap by Jessica Hische" align="left" alt="T"/>his is my professional portfolio and personal blog site. I'm using Bootstrap's css and javascript with a few minor
+		 tweaks and a couple of Bootstrap's starter templates for the pages. Its a constant work in progress as I find new design 
+		 trends I like and want to experiment with. I recently discovered Google's documentation on their javascript-based interactive
+		 graphs, so <em>of course</em> I had to include a few. The fonts are Helvetica and Athelas, and the beautiful drop caps are by the wildly 
+		 talented Jessica Hische, my design-crush.</p>
+		</div>
+		
+      	
+      	
+      <div class="footer">
+        <p style="float: left;">&copy; Candice McCollough 2014</p> <p style="float: right;">Gorgeous Drop Caps by <a href="http://jessicahische.is/droppingcaps">Jessica Hische</a></p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./home_files/jquery.js"></script>
+    <script src="./home_files/bootstrap.min.js"></script>
+    <script src="./home_files/docs.js"></script>
+   <script>
+    $('#my-affix').affix({
+    offset: {
+      top: 60
+    , bottom: function () {
+        return (this.bottom = $('.footer').outerHeight(true))
+      }
+    }
+  })
+  </script>
+
+</body></html>

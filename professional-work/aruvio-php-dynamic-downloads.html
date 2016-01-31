@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Professional Work by Candice McCollough">
+    <meta name="author" content="Candice McCollough">
+    <link rel="shortcut icon" href="../imgs/candice.ico">
+
+    <title>Candice McCollough - Professional Work</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+  
+    
+
+    <!-- Custom styles for this template -->
+    <link href="../css/jumbotron-narrow.css" rel="stylesheet">
+    <!-- my custom CSS -->
+    <link href="../css/pages.css" rel="stylesheet">
+
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+        
+        <li class="dropdown">
+          <a href="./extras.html" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Extras <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.happenings.creativecandice.com">Blog</a></li>
+            <li class="divider"></li>
+            <li><a href="../personal-work.html">Personal Projects</a></li>
+            <li><a href="../fine-art.html">Fine Art</a></li>
+            <li><a href="../school-work.html">School Projects</a></li>
+            
+            
+          </ul>
+        </li>
+        
+         	<!--<li><a href="./extras.html">Extras</a></li>-->
+          <li class="active"><a href="../portfolio.html">Portfolio</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <h3 class="text-muted"><a class="text-muted" style="text-decoration: none;" href="http://www.creativecandice.com">Dynamic Downloads</a></h3>
+      </div>
+      
+      <div class="row bottom-border">
+      	
+      	<div class="col-lg-12">
+      	<h1 class="candice-aside">Aruvio needed a way to have different links populate on the same  goal page, depending on how a user arrived at the page.</h1>
+      	</div><!--end <div class="col-lg-8">-->
+      	</div><!--end <div class="row">-->
+      	<p>Aruvio's website has a series of downloadable pdf's that contain information about each of the Brand's products. I need a way to easily manage and track what
+      	is being downloaded because one of the company's main lead sources is the website; each download requires a user to submit a form with contact information.</p>
+      	<p>So, I wrote this neat bit of PHP that takes the previous url (passed in as wp_get_referer()) and depending on what that value is, populates a link on the redirected goal page
+      	 with the correct pdf.</p>
+      	 <a href="http://aruvio.com/company/grc-datasheet/" target="_blank" class="btn btn-warning btn-block btn-lrg" role="button">Try It Out! Start Here</a>
+
+      	 
+      	 <pre>
+function link_to_doc( $previous_url ) {
+	$link_doc = Null;
+	switch ( $previous_url ) {
+		case 'http://aruvio.com/company/grc-datasheets/controls-management-datasheet/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/04/Aruvio-Controls-Management-Datasheet.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheets/compliance-management-datasheet-download/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/04/Aruvio-Compliance-Management-Datasheet.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheet/cloud-based-grc-datasheet/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/07/Aruvio-Datasheet-Cloud-Based-GRC.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheet/enterprise-grc-solution-brief/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/03/Aruvio-Enterprise-GRC-Solution-Brief.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheet/incident-response/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/03/Aruvio-Incident-Response-and-Management-Solution-Brief.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheet/aruvio-regulatory-compliance-management-solution-brief/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/05/Aruvio-Regulatory-Compliance-Solution-Brief-2.pdf';
+			break;
+		case 'http://aruvio.com/company/grc-datasheet/third-party-risk-solution/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/06/Aruvio-Third-Party-Risk-and-Compliance-Management-Solution-Brief.pdf';
+			break;
+		case 'http://aruvio.com/download-policy-management-white-paper/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/07/Aruvio-GRC-Visions-Policy-Management-White-Paper.pdf';
+			break;
+		case 'http://aruvio.com/document-downloads/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2014/07/AruvioGRCVisions-Vendor-Risk-Management-WhitePaper.pdf';
+			break;
+		case 'http://aruvio.com/company/news-access/':
+			$link_doc = 'http://aruvio.com/wp-content/uploads/2013/05/Aruvio-SC-magazine.pdf';
+			break;
+		default:
+			return;
+	}		
+	echo "&lt;div&gt;&lt;h3&gt;&lt;a target='_blank' href='$link_doc'&gt;Click to Download Requested Document&lt;/a&gt;&lt;/h3&gt;&lt;/div&gt;";
+}
+</pre>
+
+      	 
+      	 <p>Say the user is looking at the Controls DataSheet Page; the url for the first case. When they submit the information form, the form redirects them 
+      	 to the goal page that is set up with my special 'Thank you' page template. In that template, just before the call to the_content(), is a call to this function:
+      	 
+      	 </p>
+      	 
+      	 <pre>
+&lt;?php link_to_doc( wp_get_referer() ); ?&gt;
+      	 </pre>
+      	 
+      	 
+      	 <p>And when the page loads, if the referring page is any in the case statement, then the correct link is echo'd back. If it isn't, because somebody somehow just knew what to type in 
+      	 to get to the download goal page, then the function simply returns and nothing is inserted, all the user sees is the 'Thank You, remember to follow us on Twitter' message that is the content of the page.</p>
+      	 
+      	 <p>This greatly simplifies our google analytics because we have a single goal page for any number of different download requests.</p>
+      	 
+      	 <h2>The Problem with Caching</h2>
+      	 
+      	 <p>Now, when testing, I could go from a form page to the thank you page, see the correct link and download the requested document,
+      	  but when I repeated the process with a different downloadable pdf, I saw the same link as before showing up. Why? Page caching.</p>
+      	  
+      	  <p>See, PHP is a server-side language, the user's browser has no idea the page is dynamic, all it sees is the resolved html. So when it loads a url and gets the html file for that url, if the cache isn't
+      	  cleared, the next time the browser loads that url, it checks to see if it already has a saved html file to go with it, and in this case, it did. The PHP worked perfectly both times, but the browser didn't ask 
+      	  for another version of the page, because the url was the same, it just used the cached html.</p>
+      	  <p>Getting around this was a bit challenging. I started out trying to force a users browser to never cache that page by using headers telling the browser the page had expired.</p>
+      	  
+      	  <pre>
+&lt;?php
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache'); 
+    header('Expires: 0');
+?&gt;
+      	  </pre>
+      	  
+      	  
+      	  <p>But that wasn't working for some reason. I'm not sure why. So I looked for another solution. One thing I could do is 
+      	  to make sure the url is never the same by passing a random (or at least always changing) number into the url as a query string. </p>
+      	  <p>I went into the settings of the gravity forms we are using and told the form to redirect to the
+      	   goal page and pass a combination of the form_id and the entry_id as a query string. Now it brings up the right link every time,
+      	    because the browser doesn't recognize it as the same url it already has cached.</p> 
+      	 <p class="lead">An Example:</p>
+      	 <pre>
+http://aruvio.com/company/contact/thank-you-download/?321741
+      	 </pre>
+      	 <p>The numbers on the end are the query string, '32' is the form id, and '1741' is the entry id, I used them in conjunction to ensure the 
+      	 number is always different, even if somebody fills out the same form twice.</p>
+      	 
+      	 <p>Future changes will be to have a different image with the link showing the thumbnail of the document, rather than just text, and links to other pertinent 
+      	 information on the site that the user may be interested in, given the document they just requested. Say, if they asked to download the paper by Michael Rasmussen,
+      	  I could suggest they listen to the recorded webinar we had with Rasmussen and provide a link.</p>
+      	 
+      
+
+<a href="./aruvio-banner-ads.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Previous Project</a>
+    		
+<a href="../portfolio.html" target="_self" class="btn btn-default btn-block btn-lrg" role="button">Back to Professional Work</a>
+<a href="./aruvio-html-email.html" target="_self" class="btn btn-warning btn-block btn-lrg" role="button">Next Project</a>
+
+          			
+      <div class="footer">
+        <p style="float: left;">&copy; Candice McCollough 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../home_files/jquery.js"></script>
+    <script src="../home_files/bootstrap.min.js"></script>
+    <script src="../home_files/docs.js"></script>
+
+
+</body></html>
